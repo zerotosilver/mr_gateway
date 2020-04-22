@@ -10,7 +10,7 @@ resources:
 
 variables:
 - group: common-value
-  # containerRegistry: 'admin12acr.azurecr.io'
+  # containerRegistry: 'admin19acr.azurecr.io'
   # containerRegistryDockerConnection: 'acr'
   # environment: 'aks.default'
 - name: imageRepository
@@ -105,22 +105,6 @@ stages:
                           image: $(containerRegistry)/$(imageRepository):$(tag)
                           ports:
                             - containerPort: 8080
-                          readinessProbe:
-                            httpGet:
-                              path: /actuator/health
-                              port: 8080
-                            initialDelaySeconds: 10
-                            timeoutSeconds: 2
-                            periodSeconds: 5
-                            failureThreshold: 10
-                          livenessProbe:
-                            httpGet:
-                              path: /actuator/health
-                              port: 8080
-                            initialDelaySeconds: 120
-                            timeoutSeconds: 2
-                            periodSeconds: 5
-                            failureThreshold: 5
               secretType: 'dockerRegistry'
               containerRegistryType: 'Azure Container Registry'
           - task: Kubernetes@1
@@ -143,5 +127,7 @@ stages:
                       targetPort: 8080
                   selector:
                     app: $(imageRepository)
+                  type:
+                      LoadBalancer
               secretType: 'dockerRegistry'
               containerRegistryType: 'Azure Container Registry'
