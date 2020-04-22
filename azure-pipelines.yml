@@ -10,7 +10,7 @@ resources:
 
 variables:
 - group: common-value
-  # containerRegistry: 'admin19acr.azurecr.io'
+  # containerRegistry: 'admin12acr.azurecr.io'
   # containerRegistryDockerConnection: 'acr'
   # environment: 'aks.default'
 - name: imageRepository
